@@ -144,7 +144,8 @@ function PublicShell() {
       <PublicNavbar />
       <div className="public-shell page">
         <Routes>
-          <Route path="/public" element={<PublicHome />} />
+          <Route index element={<PublicHome />} />
+<Route path="public" element={<PublicHome />} />
           <Route path="/public/doctors" element={<PublicDoctors />} />
           <Route path="/public/doctors/:id" element={<PublicDoctorProfile />} />
           <Route path="/public/doctors/:id/slots" element={<PublicDoctorSlots />} />
@@ -184,15 +185,16 @@ function AdminShell() {
   );
 }
 
-/* ─────────────────────────────────────────────── */
-/*                 ROUTER LAYER                    */
-/* ─────────────────────────────────────────────── */
-
 function RouterLayer() {
   const location = useLocation();
   const { isAuthenticated, role, loading } = useContext(AuthContext);
 
   if (loading) return null;
+
+  // NEW: redirect root "/" to /public homepage
+  if (location.pathname === "/") {
+    return <Navigate to="/public" replace />;
+  }
 
   const isPublic = location.pathname.startsWith("/public");
   const isLogin = location.pathname.startsWith("/login");
@@ -209,6 +211,7 @@ function RouterLayer() {
 
   return <AdminShell />;
 }
+
 
 /* ─────────────────────────────────────────────── */
 /*                 APP ROOT                        */
