@@ -1,9 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "./styles/globals.css";
 @import "./styles/premium-bg.css";
 @import "./App.css";
+
 
 html, body, #root {
   height: 100%;
